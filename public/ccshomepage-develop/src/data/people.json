@@ -1,0 +1,97 @@
+[
+  {
+    "image": "assets/people/Martins.jpg",
+    "name": "Mārtiņš Īviņš",
+    "position": "Co-founder, Business developer"
+  },
+  {
+    "image": "assets/people/Diana.jpg",
+    "name": "Diāna Birkmane",
+    "position": "Project manager"
+  },
+  {
+    "image": "assets/people/Yevgeniy.jpg",
+    "name": "Yevgeniy Rozhkov",
+    "position": "Backend department team lead"
+  },
+  {
+    "image": "assets/people/Aigars.jpg",
+    "name": "Aigars Baks",
+    "position": "Frontend team lead with full stack development experience"
+  },
+  {
+   "image": "assets/people/Pavel.jpg",
+   "name": "Pavel Shamparov",
+   "position": "Frontend Developer"
+  },
+  {
+   "image": "assets/people/Romans.jpg",
+   "name": "Romans Rjabcevs",
+   "position": "Back-end Laravel developer"
+  },
+  {
+   "image": "assets/people/Sampath.jpg",
+   "name": "Sampath Madhuranga Vithanage",
+   "position": "Frontend Developer"
+  },
+  {
+   "image": "assets/people/Gertrud.jpg",
+   "name": "Gertrud Karu",
+   "position": "Product Manager"
+  },
+  {
+   "image": "assets/people/Ilze.jpg",
+   "name": "Ilze Hermane",
+   "position": "CoSafe project support"
+  },
+  {
+   "image": "assets/people/no_photo.jpg",
+   "name": "Maisam Shah",
+   "position": "Frontend Developer"
+  },
+  {
+   "image": "assets/people/Amangeldy.jpg",
+   "name": "Amangeldy Shalginbayev",
+   "position": "Backend .NET developer"
+  },
+  {
+   "image": "assets/people/Amin.jpg",
+   "name": "Amin Jimil",
+   "position": "Front-end Angular Developer"
+  },
+  {
+   "image": "assets/people/no_photo.jpg",
+   "name": "Rihards Alekss Dinsbergs",
+   "position": "Frontend Developer"
+  },
+  {
+   "image": "assets/people/no_photo.jpg",
+   "name": "Madars Balodis",
+   "position": ""
+  },
+  {
+   "image": "assets/people/Ahmad.jpg",
+   "name": "Ahmad Khalil",
+   "position": "Front-end developer"
+  },
+  {
+   "image": "assets/people/Martins_Bardulis.jpg",
+   "name": "Martins Bardulis",
+   "position": "Quality Assurance (QA)"
+  },
+  {
+   "image": "assets/people/no_photo.jpg",
+   "name": "Ruslans Smolenskis",
+   "position": "Front-end developer"
+  },
+  {
+   "image": "assets/people/no_photo.jpg",
+   "name": "Davis Iljins",
+   "position": ""
+  },
+  {
+   "image": "assets/people/no_photo.jpg",
+   "name": "Arvis Iljins",
+   "position": "Front-end developer"
+  }
+ ]

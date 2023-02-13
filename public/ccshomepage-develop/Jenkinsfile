@@ -1,0 +1,36 @@
+pipeline {
+  agent {
+    docker {
+      image 'node:13'
+    }
+  }
+  environment {
+    HOME="${WORKSPACE}"
+  }
+  options {
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '2'))
+  }
+  stages {
+    stage("install") {
+      steps {
+        sh """
+          npm install
+        """
+      }
+    }
+    stage("Lint") {
+      steps {
+        sh "./node_modules/gulp/bin/gulp.js build"
+      }
+    }
+    stage("deploy on developer server") { // todo deploy bra test
+//       when {
+//         branch 'develop'
+//       }
+      steps {
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'CCS-Home', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/', remoteDirectorySDF: false, removePrefix: 'output', sourceFiles: 'output/**')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+-
+  name: Delpoy backend
+  hosts: '{{ host }}'
+  become: yes
+  tasks:
+    - name: Copy backend files
+      copy:
+        src: ./deploy/
+        dest: '{{ backend.path }}'
+    
+    - name: Composer install
+      shell: |
+        cd {{ backend.path }}
+        COMPOSER_ALLOW_SUPERUSER=1 composer install
+    
+    - name: Apply migrations
+      shell: |
+        cd {{ backend.path }}
+        php artisan migrate

@@ -1,0 +1,37 @@
+:root {
+    --purple: #5c24a4;
+    --dark-purple: #4C1B8C;
+    --light-blue: #6FD3D3;
+    --blue: #4c44d4;
+    --yellow: #fcbc04;
+    --tomato: #fc7454;
+    --light-grey: #8c8c8c;
+    --dark-grey: #343434;
+    --grey: #949494;
+    --dark-blue: #10225E;
+    --darker-blue: rgb(8, 16, 48);
+    --blue2: #3D47D7;
+    --main-font-color: #fff;
+    --main-font-size: 14px;
+    --header-small-font-size: 24px;
+    --header-medium-font-size: 36px;
+    --button-font-size: 18px;
+}
+body, html {
+    width: 100%;
+    background: var(--dark-blue);
+    overflow: auto;
+    margin:0;
+    padding:0;
+}
+div {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+p {
+    color: var(--main-font-color);
+    font-size: var(--header-medium-font-size);
+}

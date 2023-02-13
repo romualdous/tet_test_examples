@@ -1,0 +1,3502 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Voice Calls OpenAPI Documentation",
+        "description": "All the available endpoints in one place.",
+        "contact": {
+            "email": "davis@ccstudio.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://135.181.86.92/",
+            "description": "Staging server"
+        },
+        {
+            "url": "http://localhost:8000/",
+            "description": "Development server"
+        }
+    ],
+    "paths": {
+        "api/auth/phone": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Sign in",
+                "description": "Login by email, password",
+                "operationId": "authLoginPhone",
+                "requestBody": {
+                    "description": "Pass in phone number for the user, as well as desired type (customer or listener)",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone_number",
+                                    "type"
+                                ],
+                                "properties": {
+                                    "phone_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+37129179850"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "listener"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Code has been sent successfully"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/auth/phone/verify": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Verify phone number",
+                "description": "Verify phone number by entering code received",
+                "operationId": "authLoginVerify",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone_number",
+                                    "verification_code"
+                                ],
+                                "properties": {
+                                    "phone_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+37129179850"
+                                    },
+                                    "verification_code": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": 243564
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User successfully verified"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "1|2k3jg621kj46nb3kj6bn"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/auth/phone/resend": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Resend verification code to phone number",
+                "description": "Resend verification code by providing user's phone number",
+                "operationId": "authLoginResend",
+                "requestBody": {
+                    "description": "Pass user phone number",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "phone_number"
+                                ],
+                                "properties": {
+                                    "phone_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+37129179850"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Verification code resent"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Log out from the system",
+                "description": "Log out from system and delete current access token",
+                "operationId": "authLogout",
+                "responses": {
+                    "200": {
+                        "description": "Successful logout",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get current user",
+                "description": "Returns currently signed in user",
+                "operationId": "getCurrentUser",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/user ": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update your own profile",
+                "description": "Updates your own profile",
+                "operationId": "updateProfile",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data:": {
+                            "schema": {
+                                "required": [
+                                    "full_name",
+                                    "email",
+                                    "gender"
+                                ],
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "example": "Davis N"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "rules": "unique for users",
+                                        "example": "davis@ccstudio.com"
+                                    },
+                                    "date_of_birth": {
+                                        "type": "string",
+                                        "example": "24.03.1990"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "enum": [
+                                            "male",
+                                            "female"
+                                        ],
+                                        "example": "male"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "online",
+                                            "offline",
+                                            "on-call"
+                                        ],
+                                        "example": "online"
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "minLength": 3,
+                                        "example": "Some long description about myself"
+                                    },
+                                    "profile_url": {
+                                        "type": "string",
+                                        "format": "uri",
+                                        "example": "https://www.linkedin.com/in/vojislav-pavasovi%C4%87-80b528a1/"
+                                    },
+                                    "profile_image": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "example": "profilepic.png"
+                                    },
+                                    "spoken_languages": {
+                                        "type": "array",
+                                        "example": [
+                                            "en",
+                                            "lv",
+                                            "ru"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User successfully updated"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/user/status": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update your current status",
+                "description": "Updates your current status to either 'online', 'on-call' or 'offline'",
+                "operationId": "updateStatus",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "status"
+                                ],
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "online"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User status successfully updated"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/users/{user}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get data about any user",
+                "description": "Returns data about specified user by ID",
+                "operationId": "getUser",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/device-token/refresh": {
+            "post": {
+                "tags": [
+                    "Device Tokens (Firebase CM)"
+                ],
+                "summary": "Update your current device token for app",
+                "description": "Update current device token depending on which application is used: customer or listener app. Available 'type' is 'customer' or 'listener'",
+                "operationId": "updateDeviceToken",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "device_token",
+                                    "type"
+                                ],
+                                "properties": {
+                                    "device_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "k3l2j4hk2j3h6nklj43567"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "customer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Device token has been set"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "api/online/{topic?}": {
+            "get": {
+                "tags": [
+                    "Online listeners"
+                ],
+                "summary": "Show all listeners that are currently online",
+                "description": "Show online listeners and optionally filter them by topic.",
+                "operationId": "onlineListeners",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "topic",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": false,
+                        "description": "Topic id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response (as Laravel resource, includes pagination)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/online/topic-languages": {
+            "post": {
+                "tags": [
+                    "Online listeners"
+                ],
+                "summary": "Online listeners by topic and languages",
+                "description": "Show all listeners that are currently online who speak one of the languages and are subscribed to a topic.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "topic_id",
+                                    "languages"
+                                ],
+                                "properties": {
+                                    "topic_id": {
+                                        "type": "integer",
+                                        "example": 342
+                                    },
+                                    "languages": {
+                                        "type": "array",
+                                        "example": [
+                                            "lv",
+                                            "en",
+                                            "ru"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "full_name": "Avis Cummerata",
+                                                    "rating": "",
+                                                    "comment": ""
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/login": {
+            "post": {
+                "tags": [
+                    "Admin auth"
+                ],
+                "summary": "Sign in",
+                "description": "Login by email, password",
+                "operationId": "adminLogin",
+                "requestBody": {
+                    "description": "Authenticate as administrator",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "davis@ccstudio.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "super-secret-password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully authenticated!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "There has been an error while trying to authenticated. Try again."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/forgot-password": {
+            "post": {
+                "tags": [
+                    "Admin auth"
+                ],
+                "summary": "Send password reset link",
+                "description": "Send password reset link to e-mail address provided",
+                "operationId": "authForgotPassword",
+                "requestBody": {
+                    "description": "Enough to just provide e-mail address for your account",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "davis@ccstudio.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "E-mail with password reset link has been sent!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": {
+                                                "email": "davis@ccstudio.com"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User who's password you are trying to request to reset, is not an admin"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/reset-password": {
+            "post": {
+                "tags": [
+                    "Admin auth"
+                ],
+                "summary": "Reset password with link e-mailed",
+                "description": "",
+                "operationId": "authResetPassword",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "davis@ccstudio.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "new-secret-password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "new-secret-password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password successfully reset!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Failed response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "There has been an error."
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": {
+                                                "email": "Some response"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/logout": {
+            "get": {
+                "tags": [
+                    "Admin auth"
+                ],
+                "summary": "Log out",
+                "description": "",
+                "operationId": "adminLogout",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/profile": {
+            "get": {
+                "tags": [
+                    "Admin profile"
+                ],
+                "summary": "Show currently signed in admin profile info",
+                "description": "",
+                "operationId": "adminProfile",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/profile/password": {
+            "post": {
+                "tags": [
+                    "Admin profile"
+                ],
+                "summary": "Update current admin password",
+                "description": "",
+                "operationId": "adminPasswordUpdate",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "current_password",
+                                    "new_password",
+                                    "new_password_confirmation"
+                                ],
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "not-so-secret-password"
+                                    },
+                                    "new_password": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "new-super-secret-password"
+                                    },
+                                    "new_password_confirmation": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "new-super-secret-password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully updated password!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/profile/information": {
+            "post": {
+                "tags": [
+                    "Admin profile"
+                ],
+                "summary": "Update currently signed in admin profile info",
+                "description": "",
+                "operationId": "adminProfileInfoUpdate",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Dāvis N"
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "example": "desired_photo"
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Some interesting bio about myself"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "davis@ccstudio.com"
+                                    },
+                                    "date_of_birth": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "30.09.1994"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "male"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile has been successfully updated!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/profile/photo": {
+            "delete": {
+                "tags": [
+                    "Admin profile"
+                ],
+                "summary": "Reset current admin profile photo",
+                "description": "",
+                "operationId": "adminProfilePhoto",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile photo successfully deleted!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/profile/other-browser-sessions": {
+            "delete": {
+                "tags": [
+                    "Admin profile"
+                ],
+                "summary": "Log-out any other devices signed into current account",
+                "description": "",
+                "operationId": "adminProfileSessions",
+                "requestBody": {
+                    "description": "You have to approve this action by providing current password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "password"
+                                ],
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "my-current-password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Other devices have been unauthorized successfully!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/users ": {
+            "post": {
+                "tags": [
+                    "Admin: users"
+                ],
+                "summary": "Create a new user in the system",
+                "description": "",
+                "operationId": "adminUsersStore",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Davis"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "N"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "davis@ccstudio.com"
+                                    },
+                                    "age": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": 24
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "male"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "+37129179850"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "listener"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response (as Laravel resource, includes pagination)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/users/{user} ": {
+            "put": {
+                "tags": [
+                    "Admin: users"
+                ],
+                "summary": "Update specified user",
+                "description": "",
+                "operationId": "adminUserUpdate",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Davis"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "N"
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "example": "new_image"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response (as Laravel resource, includes pagination)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/User"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/admin-panel/users/{user}  ": {
+            "delete": {
+                "tags": [
+                    "Admin: users"
+                ],
+                "summary": "Delete specified user",
+                "description": "",
+                "operationId": "adminUserDelete",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User successfully deleted!"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/call": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "Initiate call with listener",
+                "description": "",
+                "operationId": "callInitiate",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "listener_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Call has been initiated"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": {
+                                                "conversation_id": 3,
+                                                "channel": "1x982435tv1kjdh235",
+                                                "token": "21lk3j45hgku5gbhkj21b4/213khj54gkh243bg65jhb1115243j56"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/call/list": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "Get a list of user's conversations",
+                "description": "List can be filtered by listener_id and/or caller_id",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "listener_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "caller_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": [
+                                                {
+                                                    "id": 151,
+                                                    "caller_id": "60",
+                                                    "listener_id": "1",
+                                                    "topic_id": null,
+                                                    "channel": "QZpBWBfUyT7ZXZ9b",
+                                                    "token": "uFHBo7aA51oMdfSY16iTa77fA",
+                                                    "started_at": "2021-06-29T09:04:07.000000Z",
+                                                    "finished_at": null,
+                                                    "duration": null,
+                                                    "status": "requested",
+                                                    "created_at": "2021-06-29T09:04:07.000000Z",
+                                                    "updated_at": "2021-06-29T09:04:07.000000Z",
+                                                    "listener": {
+                                                        "id": 1,
+                                                        "full_name": "Idell Treutel",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "hettinger.archibald@example.org",
+                                                        "date_of_birth": "16.12.1975",
+                                                        "phone_number": "515.808.3813",
+                                                        "gender": "male",
+                                                        "type": "customer",
+                                                        "rating": null,
+                                                        "status": "online",
+                                                        "bio": "Dolore sit molestiae amet.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "Z2vB2HZ1suzCsBlx",
+                                                        "device_token_listener": "SlQzShhuomBuIBB8",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 78687501.74,
+                                                        "profile_url": "http:\/\/www.treutel.net\/consequatur-amet-et-quod-explicabo",
+                                                        "language": "fo",
+                                                        "stripe_id": null
+                                                    },
+                                                    "caller": {
+                                                        "id": 60,
+                                                        "full_name": "Velva Renner",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "shaag@example.org",
+                                                        "date_of_birth": "28.09.1980",
+                                                        "phone_number": "1-732-229-7527",
+                                                        "gender": "female",
+                                                        "type": "both",
+                                                        "rating": null,
+                                                        "status": "offline",
+                                                        "bio": "Reiciendis et itaque animi et quis sit est.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "8VQNOPKf4uEZLfbh",
+                                                        "device_token_listener": "SYfCpax9DR2Sejjn",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 1645.02,
+                                                        "profile_url": "http:\/\/www.botsford.com\/fuga-doloribus-vero-perferendis-vero",
+                                                        "language": "br",
+                                                        "stripe_id": null
+                                                    }
+                                                },
+                                                {
+                                                    "id": 152,
+                                                    "caller_id": "60",
+                                                    "listener_id": "1",
+                                                    "topic_id": null,
+                                                    "channel": "en6vpFIKFPTAJGeC",
+                                                    "token": "uxlHwqE08DtJeWbcZ0h7t3js0",
+                                                    "started_at": "2021-06-29T09:04:07.000000Z",
+                                                    "finished_at": null,
+                                                    "duration": null,
+                                                    "status": "requested",
+                                                    "created_at": "2021-06-29T09:04:07.000000Z",
+                                                    "updated_at": "2021-06-29T09:04:07.000000Z",
+                                                    "listener": {
+                                                        "id": 1,
+                                                        "full_name": "Idell Treutel",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "hettinger.archibald@example.org",
+                                                        "date_of_birth": "16.12.1975",
+                                                        "phone_number": "515.808.3813",
+                                                        "gender": "male",
+                                                        "type": "customer",
+                                                        "rating": null,
+                                                        "status": "online",
+                                                        "bio": "Dolore sit molestiae amet.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "Z2vB2HZ1suzCsBlx",
+                                                        "device_token_listener": "SlQzShhuomBuIBB8",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 78687501.74,
+                                                        "profile_url": "http:\/\/www.treutel.net\/consequatur-amet-et-quod-explicabo",
+                                                        "language": "fo",
+                                                        "stripe_id": null
+                                                    },
+                                                    "caller": {
+                                                        "id": 60,
+                                                        "full_name": "Velva Renner",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "shaag@example.org",
+                                                        "date_of_birth": "28.09.1980",
+                                                        "phone_number": "1-732-229-7527",
+                                                        "gender": "female",
+                                                        "type": "both",
+                                                        "rating": null,
+                                                        "status": "offline",
+                                                        "bio": "Reiciendis et itaque animi et quis sit est.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "8VQNOPKf4uEZLfbh",
+                                                        "device_token_listener": "SYfCpax9DR2Sejjn",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 1645.02,
+                                                        "profile_url": "http:\/\/www.botsford.com\/fuga-doloribus-vero-perferendis-vero",
+                                                        "language": "br",
+                                                        "stripe_id": null
+                                                    }
+                                                },
+                                                {
+                                                    "id": 153,
+                                                    "caller_id": "60",
+                                                    "listener_id": "1",
+                                                    "topic_id": null,
+                                                    "channel": "Irhn28lQpM4il9eD",
+                                                    "token": "VMPdXEH8RYN7IlqFswmRAk6IK",
+                                                    "started_at": "2021-06-29T09:04:07.000000Z",
+                                                    "finished_at": null,
+                                                    "duration": null,
+                                                    "status": "requested",
+                                                    "created_at": "2021-06-29T09:04:07.000000Z",
+                                                    "updated_at": "2021-06-29T09:04:07.000000Z",
+                                                    "listener": {
+                                                        "id": 1,
+                                                        "full_name": "Idell Treutel",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "hettinger.archibald@example.org",
+                                                        "date_of_birth": "16.12.1975",
+                                                        "phone_number": "515.808.3813",
+                                                        "gender": "male",
+                                                        "type": "customer",
+                                                        "rating": null,
+                                                        "status": "online",
+                                                        "bio": "Dolore sit molestiae amet.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "Z2vB2HZ1suzCsBlx",
+                                                        "device_token_listener": "SlQzShhuomBuIBB8",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 78687501.74,
+                                                        "profile_url": "http:\/\/www.treutel.net\/consequatur-amet-et-quod-explicabo",
+                                                        "language": "fo",
+                                                        "stripe_id": null
+                                                    },
+                                                    "caller": {
+                                                        "id": 60,
+                                                        "full_name": "Velva Renner",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "shaag@example.org",
+                                                        "date_of_birth": "28.09.1980",
+                                                        "phone_number": "1-732-229-7527",
+                                                        "gender": "female",
+                                                        "type": "both",
+                                                        "rating": null,
+                                                        "status": "offline",
+                                                        "bio": "Reiciendis et itaque animi et quis sit est.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "8VQNOPKf4uEZLfbh",
+                                                        "device_token_listener": "SYfCpax9DR2Sejjn",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 1645.02,
+                                                        "profile_url": "http:\/\/www.botsford.com\/fuga-doloribus-vero-perferendis-vero",
+                                                        "language": "br",
+                                                        "stripe_id": null
+                                                    }
+                                                },
+                                                {
+                                                    "id": 154,
+                                                    "caller_id": "60",
+                                                    "listener_id": "1",
+                                                    "topic_id": null,
+                                                    "channel": "f7Q8cCDHotvzYJQc",
+                                                    "token": "3EsCOIGZ2egWCr9QfAhu1gRYs",
+                                                    "started_at": "2021-06-29T09:04:07.000000Z",
+                                                    "finished_at": null,
+                                                    "duration": null,
+                                                    "status": "requested",
+                                                    "created_at": "2021-06-29T09:04:07.000000Z",
+                                                    "updated_at": "2021-06-29T09:04:07.000000Z",
+                                                    "listener": {
+                                                        "id": 1,
+                                                        "full_name": "Idell Treutel",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "hettinger.archibald@example.org",
+                                                        "date_of_birth": "16.12.1975",
+                                                        "phone_number": "515.808.3813",
+                                                        "gender": "male",
+                                                        "type": "customer",
+                                                        "rating": null,
+                                                        "status": "online",
+                                                        "bio": "Dolore sit molestiae amet.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "Z2vB2HZ1suzCsBlx",
+                                                        "device_token_listener": "SlQzShhuomBuIBB8",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 78687501.74,
+                                                        "profile_url": "http:\/\/www.treutel.net\/consequatur-amet-et-quod-explicabo",
+                                                        "language": "fo",
+                                                        "stripe_id": null
+                                                    },
+                                                    "caller": {
+                                                        "id": 60,
+                                                        "full_name": "Velva Renner",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "shaag@example.org",
+                                                        "date_of_birth": "28.09.1980",
+                                                        "phone_number": "1-732-229-7527",
+                                                        "gender": "female",
+                                                        "type": "both",
+                                                        "rating": null,
+                                                        "status": "offline",
+                                                        "bio": "Reiciendis et itaque animi et quis sit est.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "8VQNOPKf4uEZLfbh",
+                                                        "device_token_listener": "SYfCpax9DR2Sejjn",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 1645.02,
+                                                        "profile_url": "http:\/\/www.botsford.com\/fuga-doloribus-vero-perferendis-vero",
+                                                        "language": "br",
+                                                        "stripe_id": null
+                                                    }
+                                                },
+                                                {
+                                                    "id": 155,
+                                                    "caller_id": "60",
+                                                    "listener_id": "1",
+                                                    "topic_id": null,
+                                                    "channel": "Aea0HfPpScA3JVVG",
+                                                    "token": "dCPN237OqrcAbRFexphjMc9Th",
+                                                    "started_at": "2021-06-29T09:04:07.000000Z",
+                                                    "finished_at": null,
+                                                    "duration": null,
+                                                    "status": "requested",
+                                                    "created_at": "2021-06-29T09:04:07.000000Z",
+                                                    "updated_at": "2021-06-29T09:04:07.000000Z",
+                                                    "listener": {
+                                                        "id": 1,
+                                                        "full_name": "Idell Treutel",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "hettinger.archibald@example.org",
+                                                        "date_of_birth": "16.12.1975",
+                                                        "phone_number": "515.808.3813",
+                                                        "gender": "male",
+                                                        "type": "customer",
+                                                        "rating": null,
+                                                        "status": "online",
+                                                        "bio": "Dolore sit molestiae amet.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "Z2vB2HZ1suzCsBlx",
+                                                        "device_token_listener": "SlQzShhuomBuIBB8",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 78687501.74,
+                                                        "profile_url": "http:\/\/www.treutel.net\/consequatur-amet-et-quod-explicabo",
+                                                        "language": "fo",
+                                                        "stripe_id": null
+                                                    },
+                                                    "caller": {
+                                                        "id": 60,
+                                                        "full_name": "Velva Renner",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "shaag@example.org",
+                                                        "date_of_birth": "28.09.1980",
+                                                        "phone_number": "1-732-229-7527",
+                                                        "gender": "female",
+                                                        "type": "both",
+                                                        "rating": null,
+                                                        "status": "offline",
+                                                        "bio": "Reiciendis et itaque animi et quis sit est.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "8VQNOPKf4uEZLfbh",
+                                                        "device_token_listener": "SYfCpax9DR2Sejjn",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 1645.02,
+                                                        "profile_url": "http:\/\/www.botsford.com\/fuga-doloribus-vero-perferendis-vero",
+                                                        "language": "br",
+                                                        "stripe_id": null
+                                                    }
+                                                },
+                                                {
+                                                    "id": 156,
+                                                    "caller_id": "60",
+                                                    "listener_id": "1",
+                                                    "topic_id": null,
+                                                    "channel": "J31n9WSnRXV7OhRU",
+                                                    "token": "GyINhK0JcDu2pLClreNl0o3dl",
+                                                    "started_at": "2021-06-29T09:04:07.000000Z",
+                                                    "finished_at": null,
+                                                    "duration": null,
+                                                    "status": "requested",
+                                                    "created_at": "2021-06-29T09:04:07.000000Z",
+                                                    "updated_at": "2021-06-29T09:04:07.000000Z",
+                                                    "listener": {
+                                                        "id": 1,
+                                                        "full_name": "Idell Treutel",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "hettinger.archibald@example.org",
+                                                        "date_of_birth": "16.12.1975",
+                                                        "phone_number": "515.808.3813",
+                                                        "gender": "male",
+                                                        "type": "customer",
+                                                        "rating": null,
+                                                        "status": "online",
+                                                        "bio": "Dolore sit molestiae amet.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "Z2vB2HZ1suzCsBlx",
+                                                        "device_token_listener": "SlQzShhuomBuIBB8",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 78687501.74,
+                                                        "profile_url": "http:\/\/www.treutel.net\/consequatur-amet-et-quod-explicabo",
+                                                        "language": "fo",
+                                                        "stripe_id": null
+                                                    },
+                                                    "caller": {
+                                                        "id": 60,
+                                                        "full_name": "Velva Renner",
+                                                        "photo": "images\/profile\/",
+                                                        "email": "shaag@example.org",
+                                                        "date_of_birth": "28.09.1980",
+                                                        "phone_number": "1-732-229-7527",
+                                                        "gender": "female",
+                                                        "type": "both",
+                                                        "rating": null,
+                                                        "status": "offline",
+                                                        "bio": "Reiciendis et itaque animi et quis sit est.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "8VQNOPKf4uEZLfbh",
+                                                        "device_token_listener": "SYfCpax9DR2Sejjn",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-06-29T09:04:06.000000Z",
+                                                        "updated_at": "2021-06-29T09:04:06.000000Z",
+                                                        "balance": 1645.02,
+                                                        "profile_url": "http:\/\/www.botsford.com\/fuga-doloribus-vero-perferendis-vero",
+                                                        "language": "br",
+                                                        "stripe_id": null
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/call/accept": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "Accept incoming phone call",
+                "description": "",
+                "operationId": "callAccept",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "conversation_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": 87
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Call has been accepted"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/call/cancel": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "Cancel unanswered phone call",
+                "description": "You can cancel call that's incoming (as listener) or end the call before it's picked up by listener (as customer)",
+                "operationId": "callCancel",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "conversation_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": 87
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Call has been cancelled"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/call/finish": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "End the active phone call",
+                "description": "After you are both done talking, you can end the phone call",
+                "operationId": "callFinish",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "conversation_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": 87
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Call successfully finished"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": []
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/call/refresh": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "Refresh channel token for each participant",
+                "description": "After initial/current channel token expires, each user regenerates their token to be able to stay in call",
+                "operationId": "channelTokenRefresh",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
+                                    "channel": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "kjhgb45jh234bndic3423hkjb4t2lkj45nt"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Channel token regenerated"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": {
+                                                "token": "kj234bk2j453bk2lj345tlkj45ntlkj432kjl5bh2lkj34b6nkj"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/call/report": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "Report bad behavior",
+                "description": "Report bad behavior during conversation",
+                "requestBody": {
+                    "description": "",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "sender",
+                                    "comment",
+                                    "conversation_id"
+                                ],
+                                "properties": {
+                                    "sender": {
+                                        "type": "string",
+                                        "enum": [
+                                            "caller",
+                                            "listener"
+                                        ],
+                                        "example": "caller"
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "example": "I am not happy with the way this conversation was full of racial slurs!"
+                                    },
+                                    "conversation_id": {
+                                        "type": "integer",
+                                        "example": 412423
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Channel token regenerated"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "example": {
+                                                "token": "kj234bk2j453bk2lj345tlkj45ntlkj432kjl5bh2lkj34b6nkj"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation fails",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "sender": [
+                                                    "Sender can be either caller or listener."
+                                                ],
+                                                "comment": [
+                                                    "The comment field is required."
+                                                ],
+                                                "conversation_id": [
+                                                    "The conversation id field is required."
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/call/check": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "Set time check_time of provided conversation id.",
+                "description": "Set time check_time of provided conversation id.",
+                "operationId": "App\\Http\\Controllers\\ConversationController::checkConversationTime",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "conversation_id"
+                                ],
+                                "properties": {
+                                    "conversations_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "check_time is updated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No conversation found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Conversation not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/transactions": {
+            "get": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Show all transactions with current user",
+                "description": "Show all transactions with current user,can be filtered with dates.",
+                "parameters": [
+                    {
+                        "name": "start_date",
+                        "in": "path",
+                        "description": "Start date for filter. From where to start to search.",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        },
+                        "example": "2021-05-24"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "path",
+                        "description": "End time of filter.",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        },
+                        "example": "2021-05-28"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "date": {
+                                                        "type": "datetime",
+                                                        "example": "2021-05-29 13:08:08"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "Earn"
+                                                    },
+                                                    "amount": {
+                                                        "type": "biginteger",
+                                                        "example": "null"
+                                                    },
+                                                    "minutes": {
+                                                        "type": "double",
+                                                        "example": "102"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "date": "2021-05-29 13:08:08",
+                                                    "type": "Earn",
+                                                    "amount": null,
+                                                    "minutes": 102
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/topics": {
+            "get": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Show all topics from database",
+                "description": "Show all topics from database",
+                "operationId": "App\\Http\\Controllers\\TopicController::index",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Family"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Family description"
+                                                    },
+                                                    "photo": {
+                                                        "type": "string",
+                                                        "example": "family"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "title": "Family",
+                                                    "description": "Family description",
+                                                    "photo": "family"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user-topics": {
+            "post": {
+                "tags": [
+                    "Topics"
+                ],
+                "summary": "Attach topics to current user.",
+                "description": "Attach topics to current user.",
+                "operationId": "App\\Http\\Controllers\\TopicController::attachToUser",
+                "requestBody": {
+                    "description": "U can provide array of id's what shoud attached to user",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "topics": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            1,
+                                            2,
+                                            3,
+                                            4
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Family"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Family description"
+                                                    },
+                                                    "photo": {
+                                                        "type": "string",
+                                                        "example": "family"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "timestamp",
+                                                        "example": "2021-07-07T01:30:48.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "timestamp",
+                                                        "example": "2021-07-07T01:30:48.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "title": "Family",
+                                                    "description": "Family description",
+                                                    "photo": "https://via.placeholder.com/640x480.png/000011?text=fuga",
+                                                    "created_at": "2021-07-07T01:30:48.000000Z",
+                                                    "updated_at": "2021-07-07T01:30:48.000000Z"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/call/finishall": {
+            "post": {
+                "tags": [
+                    "In-app phone calls"
+                ],
+                "summary": "Finish all conversation of user,can be included exception id's",
+                "description": "Finish all conversation of user,can be included exception id's",
+                "operationId": "App\\Http\\Controllers\\ConversationController::finishall",
+                "requestBody": {
+                    "description": "U can provide array of id's what shoud be ignored,to finish them.",
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "excludeCalls": {
+                                        "type": "array",
+                                        "items": {},
+                                        "example": [
+                                            1,
+                                            2,
+                                            3,
+                                            4
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Operation_done"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin-panel/users/{user_id}": {
+            "post": {
+                "tags": [
+                    "Admin: users"
+                ],
+                "summary": "Change current user type(listener,customer)",
+                "description": "Change current user type(listener,customer)",
+                "operationId": "App\\Http\\Controllers\\AdminController::editUsersById",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "type"
+                                ],
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "listener"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Type is changed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin-panel/users/{user_id}/withdraw": {
+            "post": {
+                "tags": [
+                    "Admin: users"
+                ],
+                "summary": "Withdraw amount of money from users balance with checks.",
+                "description": "Withdraw amount of money from users balance with checks.",
+                "operationId": "App\\Http\\Controllers\\AdminController::withdrawFromUser",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "amount"
+                                ],
+                                "properties": {
+                                    "amount": {
+                                        "type": "integer",
+                                        "example": "1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Withdraw succesfull."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Low balance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "Your balance lower,then withdraw amount."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin-panel/statistics/period": {
+            "post": {
+                "tags": [
+                    "Admin Statistics"
+                ],
+                "summary": "Returns data of calls of time period.",
+                "description": "Returns data of calls of time period.",
+                "operationId": "App\\Http\\Controllers\\StatisticsController::getPeriod",
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "start_date": {
+                                        "type": "date",
+                                        "example": "2021-07-15"
+                                    },
+                                    "end_date": {
+                                        "type": "date",
+                                        "example": "2021-07-16"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "users_count": {
+                                            "type": "integer",
+                                            "example": "51"
+                                        },
+                                        "payment_count": {
+                                            "type": "integer",
+                                            "example": "76"
+                                        },
+                                        "total_calls": {
+                                            "type": "integer",
+                                            "example": "167"
+                                        },
+                                        "total_succesfull_calls": {
+                                            "type": "integer",
+                                            "example": "100"
+                                        },
+                                        "total_call_time": {
+                                            "type": "integer",
+                                            "example": "12312451"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin-panel/statistics/reports": {
+            "get": {
+                "tags": [
+                    "Admin Statistics"
+                ],
+                "summary": "Returns all datas of reports with different filters",
+                "description": "Returns all datas of reports with different filters",
+                "operationId": "App\\Http\\Controllers\\StatisticsController::getReports",
+                "parameters": [
+                    {
+                        "name": "sort",
+                        "in": "path",
+                        "description": "Your can provide sort option to all comming datas : 'time' ",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "time"
+                    },
+                    {
+                        "name": "userMadeReport",
+                        "in": "path",
+                        "description": "U can provide id of user who made reports. And ull get return datas only with this user.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "userGotReported",
+                        "in": "path",
+                        "description": "U can provide id of user who getting reports. And ull get return datas only with this user.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "2"
+                    },
+                    {
+                        "name": "time",
+                        "in": "path",
+                        "description": "U can provide date,in what date u whatnt to see reports.",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        },
+                        "example": "2021-05-28"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "sender": {
+                                                        "type": "string",
+                                                        "example": "listener"
+                                                    },
+                                                    "comment": {
+                                                        "type": "string",
+                                                        "example": "test123456"
+                                                    },
+                                                    "conversation_id": {
+                                                        "type": "integer",
+                                                        "example": "102"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-08-27T09:42:08.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-08-27T09:42:08.000000Z"
+                                                    },
+                                                    "got_reported": {
+                                                        "type": "integer",
+                                                        "example": "11"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "sender": "listener",
+                                                    "comment": "test123456",
+                                                    "conversation_id": 19,
+                                                    "created_at": "2021-08-27T09:42:08.000000Z",
+                                                    "updated_at": "2021-08-27T09:42:08.000000Z",
+                                                    "got_reported": 1,
+                                                    "conversation": {
+                                                        "id": 19,
+                                                        "caller_id": 64,
+                                                        "listener_id": 55,
+                                                        "topic_id": 3,
+                                                        "channel": "tI2zfvIoVfcAy5r7",
+                                                        "token": "O6KIFE9PZ0JUbpCCIeeQpPJpe",
+                                                        "started_at": "2021-05-20T16:28:28.000000Z",
+                                                        "finished_at": null,
+                                                        "duration": 25,
+                                                        "status": "finished",
+                                                        "created_at": "2021-05-07T01:31:16.000000Z",
+                                                        "updated_at": "2021-08-19T22:30:02.000000Z",
+                                                        "check_time": "2021-08-20 01:22:51",
+                                                        "caller": {
+                                                            "id": 64,
+                                                            "full_name": null,
+                                                            "email": null,
+                                                            "date_of_birth": "06.09.2021",
+                                                            "phone_number": "+37126083794",
+                                                            "gender": null,
+                                                            "type": "listener",
+                                                            "rating": null,
+                                                            "status": "offline",
+                                                            "bio": null,
+                                                            "email_verified_at": null,
+                                                            "device_token_customer": null,
+                                                            "device_token_listener": null,
+                                                            "remember_token": null,
+                                                            "created_at": "2021-08-16T13:00:21.000000Z",
+                                                            "updated_at": "2021-09-03T10:41:55.000000Z",
+                                                            "balance": 404.03,
+                                                            "profile_url": null,
+                                                            "language": null,
+                                                            "stripe_id": null,
+                                                            "last_activity_date": "2021-09-01 14:11:18",
+                                                            "consent_to_agreement": 0
+                                                        },
+                                                        "listener": {
+                                                            "id": 55,
+                                                            "full_name": "Adolph Leuschke",
+                                                            "photo": null,
+                                                            "email": "marcellus.heathcote@example.org",
+                                                            "date_of_birth": "10.12.1999",
+                                                            "phone_number": "737.826.0545",
+                                                            "gender": "female",
+                                                            "type": "listener",
+                                                            "rating": null,
+                                                            "status": "online",
+                                                            "bio": "Illum omnis distinctio maxime error officiis debitis.",
+                                                            "email_verified_at": null,
+                                                            "device_token_customer": "iQhZqfa37AwxKu8N",
+                                                            "device_token_listener": "GBWFnp0aXrZgVEZZ",
+                                                            "remember_token": null,
+                                                            "created_at": "2021-07-07T01:31:13.000000Z",
+                                                            "updated_at": "2021-08-19T22:30:02.000000Z",
+                                                            "balance": 478018.66,
+                                                            "profile_url": "http://keeling.com/odit-dolore-quia-ea-omnis-laborum-beatae-harum",
+                                                            "language": "ce",
+                                                            "stripe_id": null,
+                                                            "last_activity_date": null,
+                                                            "consent_to_agreement": 0
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin-panel/statistics/calls": {
+            "get": {
+                "tags": [
+                    "Admin Statistics"
+                ],
+                "summary": "Returns all calls datas with different filters",
+                "description": "Returns all calls datas with different filters",
+                "operationId": "App\\Http\\Controllers\\StatisticsController::getCallsToDashboard",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "path",
+                        "description": "Your can provide filter option to all comming datas in: finished,cancelled,on-going,requested",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "requested"
+                    },
+                    {
+                        "name": "caller",
+                        "in": "path",
+                        "description": "U can provide id of user. And ull get return datas only with this user in caller role.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "listener",
+                        "in": "path",
+                        "description": "U can provide id of user. And ull get return datas only with this user in listener role.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "2"
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "path",
+                        "description": "U can provide start date of all incomming records.",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        },
+                        "example": "2021-05-28"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "path",
+                        "description": "U can provide end date of all incomming records.",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        },
+                        "example": "2021-05-28"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "path",
+                        "description": "Your can provide sort option to all comming datas in: status,duration,started_at",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "status"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "caller_id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "listener_id": {
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    },
+                                                    "topic_id": {
+                                                        "type": "integer",
+                                                        "example": "102"
+                                                    },
+                                                    "channel": {
+                                                        "type": "string",
+                                                        "example": "cxXteiDAVatwzPaU"
+                                                    },
+                                                    "token": {
+                                                        "type": "string",
+                                                        "example": "oFCz9oby2cn4atmSOqnMmjupM"
+                                                    },
+                                                    "started_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-02-24T12:45:50.000000Z"
+                                                    },
+                                                    "finished_at": {
+                                                        "type": "datetime",
+                                                        "example": "null"
+                                                    },
+                                                    "duration": {
+                                                        "type": "integer",
+                                                        "example": "null"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "cancelled"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-07-07T01:31:16.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "datetime",
+                                                        "example": "2021-08-17T13:47:40.000000Z"
+                                                    },
+                                                    "check_time": {
+                                                        "type": "datetime",
+                                                        "example": "2021-02-24 14:55:00"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "caller_id": 31,
+                                                    "listener_id": 23,
+                                                    "topic_id": 2,
+                                                    "channel": "cxXteiDAVatwzPaU",
+                                                    "token": "oFCz9oby2cn4atmSOqnMmjupM",
+                                                    "started_at": "2021-02-24T12:45:50.000000Z",
+                                                    "finished_at": null,
+                                                    "duration": null,
+                                                    "status": "cancelled",
+                                                    "created_at": "2021-07-07T01:31:16.000000Z",
+                                                    "updated_at": "2021-08-17T13:47:40.000000Z",
+                                                    "check_time": "2021-02-24 14:55:00",
+                                                    "caller": {
+                                                        "id": 31,
+                                                        "full_name": "Ana Mertz",
+                                                        "photo": null,
+                                                        "email": "phoebe.hahn@example.org",
+                                                        "date_of_birth": "09.01.1976",
+                                                        "phone_number": "1-205-543-7623",
+                                                        "gender": "female",
+                                                        "type": "listener",
+                                                        "rating": null,
+                                                        "status": "offline",
+                                                        "bio": "Minus qui sit nulla quidem reprehenderit aut est.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "nIfG5DyPPOIRDcoK",
+                                                        "device_token_listener": "wvaW2y0BdpH4jvaw",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-07-07T01:31:02.000000Z",
+                                                        "updated_at": "2021-07-07T01:31:02.000000Z",
+                                                        "balance": 2964.35,
+                                                        "profile_url": "http://www.gusikowski.info/",
+                                                        "language": "bi",
+                                                        "stripe_id": null,
+                                                        "last_activity_date": null,
+                                                        "consent_to_agreement": 0
+                                                    },
+                                                    "listener": {
+                                                        "id": 23,
+                                                        "full_name": "Margie Adams",
+                                                        "photo": null,
+                                                        "email": "johns.hollie@example.net",
+                                                        "date_of_birth": "29.01.1971",
+                                                        "phone_number": "(872) 661-7044",
+                                                        "gender": "female",
+                                                        "type": "listener",
+                                                        "rating": null,
+                                                        "status": "online",
+                                                        "bio": "Qui ipsa rerum fugit deleniti magni possimus sit.",
+                                                        "email_verified_at": null,
+                                                        "device_token_customer": "Rb7lCIcmyAJ9jSIP",
+                                                        "device_token_listener": "SGTc15tFyoW1bKCF",
+                                                        "remember_token": null,
+                                                        "created_at": "2021-07-07T01:30:59.000000Z",
+                                                        "updated_at": "2021-08-17T13:47:40.000000Z",
+                                                        "balance": 2257508.66,
+                                                        "profile_url": "http://www.steuber.com/saepe-iure-eveniet-libero-quia-ducimus",
+                                                        "language": "mn",
+                                                        "stripe_id": null,
+                                                        "last_activity_date": null,
+                                                        "consent_to_agreement": 0
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin-panel/users": {
+            "get": {
+                "tags": [
+                    "Admin: users"
+                ],
+                "summary": "Returns datas of users - > with filters and search option and sort options",
+                "description": "Returns datas of users - > with filters and search option and sort options",
+                "operationId": "App\\Http\\Controllers\\Dashboard\\UserController::index",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Your can provide filter option to all incomming datas in: customer,listener",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "customer"
+                    },
+                    {
+                        "name": "searchName",
+                        "in": "path",
+                        "description": "U can provide search name ,that will be filtered and bring back datas like this name.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Mike"
+                    },
+                    {
+                        "name": "searchPhone",
+                        "in": "path",
+                        "description": "U can provide search phone ,that will be filtered and bring back datas like this phone.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "25252525"
+                    },
+                    {
+                        "name": "searchEmail",
+                        "in": "path",
+                        "description": "U can provide search email ,that will be filtered and bring back datas like this email.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "test@test.lv"
+                    },
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "U can provide order/sort type,with all datas will be sorted and returned back. in:type | full_name | phone_number | email | rating | created_at | balance | date_of_birth | succesfull_calls | total_time",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "rating"
+                    },
+                    {
+                        "name": "order_type",
+                        "in": "path",
+                        "description": "Your can provide order type -> in: desc,asc ( WORKS ONLY IF 'ORDER' SPECIFIED)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "desc"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {},
+                                            "example": [
+                                                {
+                                                    "id": 63,
+                                                    "full_name": null,
+                                                    "photo": null,
+                                                    "email": null,
+                                                    "date_of_birth": "06.09.2021",
+                                                    "phone_number": "+3712608379423",
+                                                    "gender": null,
+                                                    "type": "listener",
+                                                    "rating": null,
+                                                    "status": "offline",
+                                                    "bio": null,
+                                                    "email_verified_at": null,
+                                                    "device_token_customer": null,
+                                                    "device_token_listener": null,
+                                                    "remember_token": null,
+                                                    "created_at": "2021-08-11T16:33:32.000000Z",
+                                                    "updated_at": "2021-08-11T16:34:18.000000Z",
+                                                    "balance": 30,
+                                                    "profile_url": null,
+                                                    "language": null,
+                                                    "stripe_id": null,
+                                                    "last_activity_date": null,
+                                                    "consent_to_agreement": 0,
+                                                    "succesfull_calls": 1,
+                                                    "total_time": 50
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin-panel/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "Admin: users"
+                ],
+                "summary": "Returns datas of current user - > all datas from all resourec (calls,transactions)",
+                "description": "Returns datas of current user - > all datas from all resourec (calls,transactions)",
+                "operationId": "App\\Http\\Controllers\\Dashboard\\UserController::show",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {},
+                                            "example": [
+                                                {
+                                                    "id": 63,
+                                                    "full_name": null,
+                                                    "photo": null,
+                                                    "email": null,
+                                                    "date_of_birth": "06.09.2021",
+                                                    "phone_number": "+3712608379423",
+                                                    "gender": null,
+                                                    "type": "listener",
+                                                    "rating": null,
+                                                    "status": "offline",
+                                                    "bio": null,
+                                                    "email_verified_at": null,
+                                                    "device_token_customer": null,
+                                                    "device_token_listener": null,
+                                                    "remember_token": null,
+                                                    "created_at": "2021-08-11T16:33:32.000000Z",
+                                                    "updated_at": "2021-08-11T16:34:18.000000Z",
+                                                    "balance": 30,
+                                                    "profile_url": null,
+                                                    "language": null,
+                                                    "stripe_id": null,
+                                                    "last_activity_date": null,
+                                                    "consent_to_agreement": 0,
+                                                    "succesfull_calls": 1,
+                                                    "total_time": 50,
+                                                    "conversations_as_listener": [
+                                                        {
+                                                            "id": 9,
+                                                            "caller_id": 1,
+                                                            "listener_id": 63,
+                                                            "topic_id": 1,
+                                                            "channel": "71iR92aeF8N1osXu",
+                                                            "token": "YU8bTTWVuiyqIuHkkymCs2xBQ",
+                                                            "started_at": "2021-05-13T05:54:32.000000Z",
+                                                            "finished_at": "2021-05-13T05:58:32.000000Z",
+                                                            "duration": null,
+                                                            "status": "requested",
+                                                            "created_at": "2021-07-07T01:31:16.000000Z",
+                                                            "updated_at": "2021-07-07T01:31:16.000000Z",
+                                                            "check_time": "2021-08-17 16:48:21"
+                                                        }
+                                                    ],
+                                                    "conversations_as_caller": [
+                                                        {
+                                                            "id": 17,
+                                                            "caller_id": 63,
+                                                            "listener_id": 64,
+                                                            "topic_id": 5,
+                                                            "channel": "TWjG2RsdfRAYuZav",
+                                                            "token": "7ubgNOymKOygPtC1B9cTt3oix",
+                                                            "started_at": "2021-03-27T15:58:23.000000Z",
+                                                            "finished_at": null,
+                                                            "duration": 50,
+                                                            "status": "finished",
+                                                            "created_at": "2021-07-07T01:31:16.000000Z",
+                                                            "updated_at": "2021-08-19T22:30:02.000000Z",
+                                                            "check_time": null
+                                                        }
+                                                    ],
+                                                    "transactions": [
+                                                        {
+                                                            "id": 30,
+                                                            "payment_id": 15,
+                                                            "amount": 110,
+                                                            "type": "deposit",
+                                                            "created_at": "2020-12-24T09:57:38.000000Z",
+                                                            "updated_at": "2020-12-24T09:57:38.000000Z",
+                                                            "minutes": 11,
+                                                            "user_id": null,
+                                                            "laravel_through_key": 63
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        },
+        "schemas": {
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "full_name": {
+                        "type": "string",
+                        "minLength": 3,
+                        "example": "Davis N"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "davis@ccstudio.com"
+                    },
+                    "email_verified_at": {
+                        "type": "datetime",
+                        "example": "2021-01-16T13:40:14.000000Z"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "example": "https://gravatar.com/avatar/2lk3j4nk5bj234"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "example": "+37129179850"
+                    },
+                    "device_token_customer": {
+                        "type": "string",
+                        "example": "k2j34b52kj3nr5kj23"
+                    },
+                    "device_token_listener": {
+                        "type": "string",
+                        "example": "jlk324h5lkj23423kl"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "customer",
+                        "enum": [
+                            "customer",
+                            "listener",
+                            "both"
+                        ]
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "online",
+                            "offline",
+                            "on-call"
+                        ],
+                        "example": "online"
+                    },
+                    "rating": {
+                        "type": "float",
+                        "example": 4.5
+                    },
+                    "balance": {
+                        "type": "float",
+                        "description": "balance in minutes",
+                        "example": 40.32
+                    },
+                    "date_of_birth": {
+                        "type": "string",
+                        "example": "12.03.1995"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "enum": [
+                            "male",
+                            "female"
+                        ],
+                        "example": "male"
+                    },
+                    "language": {
+                        "type": "string",
+                        "description": "ISO 639-1 two-letter language code",
+                        "example": "en"
+                    },
+                    "bio": {
+                        "type": "string",
+                        "minLength": 3,
+                        "example": "Some sort of long bio explaining who I am"
+                    },
+                    "created_at": {
+                        "type": "date-time",
+                        "example": "2021-06-18T06:53:32.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "date-time",
+                        "example": "2021-06-18T06:53:32.000000Z"
+                    }
+                }
+            },
+            "Conversation": {
+                "type": "object",
+                "properties": {
+                    "caller_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "listener_id": {
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "topic_id": {
+                        "type": "integer",
+                        "example": 8
+                    },
+                    "channel": {
+                        "type": "string",
+                        "example": "2kj3b41#3%mk*mmaksljbd@hf"
+                    },
+                    "token": {
+                        "type": "string",
+                        "example": "kjh12gbhkj213vbjhk214nb5i243h598o23hy",
+                        "description": "Token in hashed form"
+                    },
+                    "started_at": {
+                        "type": "date",
+                        "example": "2021-02-10 11:57:21"
+                    },
+                    "finished_at": {
+                        "type": "date",
+                        "example": "2021-02-10 11:57:50"
+                    },
+                    "duration": {
+                        "type": "integer",
+                        "example": 483,
+                        "description": "Call duration in seconds"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Call status ('requested', 'cancelled', 'on-going' or 'finished')",
+                        "example": "on-going"
+                    },
+                    "created_at": {
+                        "type": "date",
+                        "example": "2021-02-10 11:57:21"
+                    },
+                    "updated_at": {
+                        "type": "date",
+                        "example": "2021-02-10 11:57:21"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Routes for authentication"
+        },
+        {
+            "name": "Users",
+            "description": "User related actions"
+        },
+        {
+            "name": "Device Tokens (Firebase CM)",
+            "description": "Device token related actions"
+        },
+        {
+            "name": "Online listeners",
+            "description": "Online listener resources"
+        },
+        {
+            "name": "Transactions",
+            "description": "List of user's transactions"
+        },
+        {
+            "name": "Admin auth",
+            "description": "Authentication for admin"
+        },
+        {
+            "name": "Admin profile",
+            "description": "CRUD operations for currently signed in administrator"
+        },
+        {
+            "name": "Admin: users",
+            "description": "User management in dashboard"
+        }
+    ],
+    "security": [
+        []
+    ]
+}

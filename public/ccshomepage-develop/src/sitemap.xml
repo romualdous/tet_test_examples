@@ -1,0 +1,24 @@
+<?xml version=”1.0” encoding=”UTF-8”>
+<urlset xmlns=”http://www.sitemaps.org/schemas/sitemap/0.9” xmlns:xhtml=”http:www.w3.org/1999/xhtml”>
+<url>
+    <loc>https://ccstudio.com</loc>
+    <lastmod>2020-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+    <xhtml:link rel=”alternate” hreflang=”en” href=”https://ccstudio.com/index.html”/>
+</url>
+<url>
+    <loc>https://ccstudio.com/calculator</loc>
+    <lastmod>2020-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+    <xhtml:link rel=”alternate” hreflang=”en” href=”https://ccstudio.com/calculator.html”/>
+</url>
+<url>
+    <loc>https://ccstudio.com/who-we-are</loc>
+    <lastmod>2020-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+    <xhtml:link rel=”alternate” hreflang=”en” href=”https://ccstudio.com/who-we-are.html”/>
+</url>
+</urlset>

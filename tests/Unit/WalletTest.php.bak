@@ -1,0 +1,85 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Exceptions\WalletException;
+use App\Models\User;
+use App\Models\Wallet;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\stubs\PaymentStubStub;
+use Tests\TestCase;
+
+class WalletTest extends TestCase
+{
+    use RefreshDatabase;
+
+    /** @test */
+    public function new_user_has_no_wallet_initially()
+    {
+        $user = User::factory()->create();
+
+        $this->assertNull($user->getWallet('eur'));
+    }
+
+    /** @test */
+    public function wallet_can_be_created_for_user()
+    {
+        $user = User::factory()->create();
+        $user->addWallet('eur');
+
+        $this->assertInstanceOf(Wallet::class, $user->getWallet('eur'));
+    }
+
+    /** @test */
+    public function wallets_are_unique_by_user_and_wallet_currency()
+    {
+        $this->expectException(WalletException::class);
+        $this->expectExceptionMessage(WalletException::alreadyExists('eur')->getMessage());
+
+        /** @var User $user */
+        $user = User::factory()->create();
+
+        $user->addWallet('eur');
+        $user->addWallet('eur');
+    }
+
+    /** @test */
+    public function funds_can_be_deposited_to_wallet_and_the_balance_would_update_accordingly()
+    {
+        $user = User::factory()->create();
+        $payment = new PaymentStubStub($balance = 200);
+
+        /** @var Wallet $wallet */
+        $wallet = $user->addWallet('eur');
+
+        $this->assertEquals(0, $wallet->balance);
+        $wallet->deposit($payment);
+        $this->assertEquals($balance, $wallet->balance);
+    }
+
+    /** @test */
+    public function funds_can_be_withdrawn_from_wallet_and_the_balance_would_update_accordingly()
+    {
+        $user = User::factory()->create();
+
+        /** @var Wallet $wallet */
+        $wallet = $user->addWallet('eur', 500);
+
+        $this->assertEquals(500, $wallet->balance);
+        $wallet->withdraw(200);
+        $this->assertEquals(300, $wallet->balance);
+    }
+
+    /** @test */
+    public function added_funds_are_tracked_within_wallet()
+    {
+        $user = User::factory()->create();
+        $payment = new PaymentStubStub($balance = 200);
+
+        /** @var Wallet $wallet */
+        $wallet = $user->addWallet('eur');
+        $wallet->deposit($payment);
+
+        $this->assertCount(1, $wallet->transactions);
+    }
+}

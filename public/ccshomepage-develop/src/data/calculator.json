@@ -1,0 +1,474 @@
+{
+  "steps": [
+    {
+      "title": "What kind of app would you like?",
+      "short_title": "App type",
+      "type": "choose",
+      "name": "app_type",
+      "value": null,
+      "allowMultiple": false,
+      "options": [
+        {
+          "title": "Native app",
+          "name": "Native app",
+          "value": "1_1",
+          "icon": "native-app.svg",
+          "description" : "Native app is built for use on a particular device and its OS"
+        },
+        {
+          "title": "React Native app",
+          "name": "React Native app",
+          "value": "1_2",
+          "icon": "react-icon.svg",
+          "description" : "Provides a core set of platform agnostic native components"
+        },
+        {
+          "title": "Cross Platform app",
+          "name": "Cross Platform app",
+          "value": "1_3",
+          "icon": "crossplatform.svg",
+          "description" : "A cross-platform approach allows you to build an app compatible with various platforms."
+        }
+      ]
+    },
+    {
+      "title": "On which device you would like to use it?",
+      "short_title": "Device type",
+      "type": "choose",
+      "name": "device_type",
+      "value": null,
+      "allowMultiple": true,
+      "options": [
+        {
+          "title": "Phone",
+          "name": "Phone",
+          "value": "2_1",
+          "icon": "smartphones.svg",
+          "description" : "Android and iOS"
+        },
+        {
+          "title": "Tablet",
+          "name": "Tablet",
+          "value": "2_2",
+          "icon": "ipad.svg",
+          "description" : "Android and iOS"
+        },
+        {
+          "title": "Computer",
+          "name": "Computer",
+          "value": "2_3",
+          "icon": "monitor.svg",
+          "description" : "Windows & Mac"
+        }
+      ]
+    },
+    {
+      "title": "What level of design/user interface would you like?",
+      "short_title": "Level type",
+      "type": "choose",
+      "name": "level_type",
+      "value": null,
+      "allowMultiple": false,
+      "options": [
+        {
+          "title": "Not Required",
+          "name": "Not Required",
+          "value": "3_1",
+          "icon": "not-required.svg",
+          "description" : "My app doesn't need UI"
+        },
+        {
+          "title": "Minimum Viable Product",
+          "name": "Minimum Viable Product",
+          "value": "3_2",
+          "icon": "mvp.svg",
+          "description" : "Just the simplest solution"
+        },
+        {
+          "title": "Basic",
+          "name": "Basic",
+          "value": "3_3",
+          "icon": "basic.svg",
+          "description" : "Good user experience and chic design"
+        },
+        {
+          "title": "Polished",
+          "name": "Polished",
+          "value": "3_4",
+          "icon": "polished.svg",
+          "description" : "Ready for a million users"
+        }
+      ]
+    },
+    {
+      "title": "Would you like to have any other kind of design related services?",
+      "short_title": "Other services",
+      "type": "choose",
+      "name": "service_type",
+      "value": null,
+      "allowMultiple": true,
+      "options": [
+        {
+          "title": "Logo design",
+          "name": "Logo design",
+          "value": "4_1",
+          "icon": "logo.svg",
+          "description" : "Immediate product-brand fit"
+        },
+        {
+          "title": "App icon design",
+          "name": "App icon design",
+          "value": "4_2",
+          "icon": "app-icon.svg",
+          "description" : "Original and relevant"
+        },
+        {
+          "title": "Color palette",
+          "name": "Color palette",
+          "value": "4_3",
+          "icon": "palette.svg",
+          "description" : "Creative decisions are hardest"
+        },
+        {
+          "title": "Style sheet",
+          "name": "Style sheet",
+          "value": "4_4",
+          "icon": "style-sheet.svg",
+          "description" : "The full-stack experience"
+        }
+      ]
+    },
+    {
+      "title": "What kind of Sign Up and Sign In would you like to have?",
+      "short_title": "Sign up",
+      "type": "choose",
+      "name": "signup_type",
+      "value": null,
+      "allowMultiple": false,
+      "options": [
+        {
+          "title": "Email/Password Sign Up",
+          "name": "Email/Password Sign Up",
+          "value": "5_1",
+          "icon": "email-password.svg",
+          "description" : "The basic bitch"
+        },
+        {
+          "title": "3rd party integrations",
+          "name": "3rd party integrations",
+          "value": "5_2",
+          "icon": "integration.svg",
+          "description" : "Keeping it safe"
+        },
+        {
+          "title": "Custom/Complex solutions",
+          "name": "Custom/Complex solutions",
+          "value": "5_3",
+          "icon": "custom.svg",
+          "description" : "You have some serious secrets"
+        },
+        {
+          "title": "SMS Sign Up",
+          "name": "SMS Sign Up",
+          "value": "5_4",
+          "icon": "sms.svg",
+          "description" : "Just use and go!"
+        },
+        {
+          "title": "Single sign-on",
+          "name": "Single sign-on",
+          "value": "5_5",
+          "icon": "social-media.svg",
+          "description" : "For a quick try-out"
+        },
+        {
+          "title": "No Sign up needed",
+          "name": "No Sign up needed",
+          "value": "5_6",
+          "icon": "no-sign-up.svg",
+          "description" : "Cool! App of the people"
+        }
+      ]
+    },
+    {
+      "title": "What kind of major features would you like to have?",
+      "short_title": "Major features",
+      "type": "choose",
+      "name": "feature_type",
+      "value": null,
+      "allowMultiple": true,
+      "options": [
+        {
+          "title": "Payment processing",
+          "name": "Payment processing",
+          "value": "6_1",
+          "icon": "payment.svg",
+          "description" : "Money machine go brrrrrrr"
+        },
+        {
+          "title": "CMS Integration",
+          "name": "CMS Integration",
+          "value": "6_2",
+          "icon": "cms.svg",
+          "description" : "Manage content by allowing multiple contributors to create, edit and publish."
+        },
+        {
+          "title": "Usage analytics",
+          "name": "Usage analytics",
+          "value": "6_3",
+          "icon": "analytics.svg",
+          "description" : "Create some cool meta data sets"
+        },
+        {
+          "title": "File Upload",
+          "name": "File Upload",
+          "value": "6_4",
+          "icon": "upload.svg",
+          "description" : "Let users upload files and keep them!"
+        },
+        {
+          "title": "Commenting and reviews",
+          "name": "Commenting and reviews",
+          "value": "6_5",
+          "icon": "comments.svg",
+          "description" : "A recommendation is the best marketing tool"
+        },
+        {
+          "title": "Chat functionality",
+          "name": "Chat functionality",
+          "value": "6_6",
+          "icon": "chat.svg",
+          "description" : "Communication is the crown jewel of our civilization"
+        }
+      ]
+    },
+    {
+      "title": "Which other features would you like to have?",
+      "short_title": "Other features",
+      "type": "choose",
+      "name": "other_feature_type",
+      "value": null,
+      "allowMultiple": true,
+      "options": [
+        {
+          "title": "Social sharing",
+          "name": "Social sharing",
+          "value": "7_1",
+          "icon": "share.svg",
+          "description" : "Sharing makes everything better"
+        },
+        {
+          "title": "Multilingual support",
+          "name": "Multilingual support",
+          "value": "7_2",
+          "icon": "language.svg",
+          "description" : "Ay, hombre! Donde esta tu burro?"
+        },
+        {
+          "title": "Map integration",
+          "name": "Map integration",
+          "value": "7_3",
+          "icon": "world.svg",
+          "description" : "In case there are some hidden treasure involved"
+        },
+        {
+          "title": "Search/filter functionality",
+          "name": "Search/filter functionality",
+          "value": "7_4",
+          "icon": "search.svg",
+          "description" : "Where's Waldo?"
+        },
+        {
+          "title": "Calendar",
+          "name": "Calendar",
+          "value": "7_5",
+          "icon": "calendar.svg",
+          "description" : "Special price for Julian calendar users"
+        },
+        {
+          "title": "Sort-able lists/tables",
+          "name": "Sort-able lists/tables",
+          "value": "7_6",
+          "icon": "list.svg",
+          "description" : "Compete with Google Sheets"
+        }
+      ]
+    },
+    {
+      "title": "More technical features",
+      "short_title": "Technical features",
+      "type": "choose",
+      "name": "technical_feature_type",
+      "value": null,
+      "allowMultiple": true,
+      "options": [
+        {
+          "title": "Device sensor data",
+          "name": "Device sensor data",
+          "value": "8_1",
+          "icon": "sensor.svg",
+          "description" : "More metadata sets to host!"
+        },
+        {
+          "title": "Barcodes and QR Codes",
+          "name": "Barcodes and QR Codes",
+          "value": "8_2",
+          "icon": "qr-code.svg",
+          "description" : "Use on physical products"
+        },
+        {
+          "title": "Audio and video processing",
+          "name": "Audio and video processing",
+          "value": "8_3",
+          "icon": "audio.svg",
+          "description" : "The next TikTok?"
+        },
+        {
+          "title": "Health Data",
+          "name": "Health Data",
+          "value": "8_4",
+          "icon": "health.svg",
+          "description" : "Steps and stuff"
+        },
+        {
+          "title": "External devices",
+          "name": "External devices",
+          "value": "8_5",
+          "icon": "external-devices.svg",
+          "description" : "Watches and stuff"
+        }
+      ]
+    },
+    {
+      "title": "API integrations",
+      "short_title": "API integrations",
+      "type": "choose",
+      "name": "api_type",
+      "value": null,
+      "allowMultiple": true,
+      "options": [
+        {
+          "title": "Connect to third party services",
+          "name": "Connect to third party services",
+          "value": "9_1",
+          "icon": "support.svg",
+          "description" : "Add more value into your product"
+        },
+        {
+          "title": "An API for others to integrate with your app",
+          "name": "An API for others to integrate with your app",
+          "value": "9_2",
+          "icon": "api.svg",
+          "description" : "Add more value with your product"
+        }
+      ]
+    },
+    {
+      "title": "Would you also like to use our services to create backend functionality and manage the data?",
+      "short_title": "Backend",
+      "type": "choose",
+      "name": "backend_type",
+      "value": null,
+      "allowMultiple": false,
+      "options": [
+        {
+          "title": "We already have it done",
+          "name": "We already have it done",
+          "value": "10_1",
+          "icon": "tick.svg",
+          "description" : "Good for you!"
+        },
+        {
+          "title": "Backend features and database is needed",
+          "name": "Backend features and database is needed",
+          "value": "10_2",
+          "icon": "backend.svg",
+          "description" : "ay-ay, Captain"
+        },
+        {
+          "title": "Admin page for content management is needed",
+          "name": "Admin page for content management is needed",
+          "value": "10_3",
+          "icon": "content.svg",
+          "description" : "Let's make it!"
+        }
+      ]
+    },
+    {
+      "title": "What kind of quality measures would you like us to perform?",
+      "short_title": "Quality",
+      "type": "choose",
+      "name": "quality_type",
+      "value": null,
+      "allowMultiple": true,
+      "options": [
+        {
+          "title": "Project management",
+          "name": "Project management",
+          "value": "11_1",
+          "icon": "pm.svg",
+          "description" : "Our PMs your project"
+        },
+        {
+          "title": "Manual tests",
+          "name": "Manual tests",
+          "value": "11_2",
+          "icon": "manual-test.svg",
+          "description" : "Comes without gear shifts"
+        },
+        {
+          "title": "Automated tests",
+          "name": "Automated tests",
+          "value": "11_3",
+          "icon": "auto-test.svg",
+          "description" : "For the comfortable lifestyle"
+        },
+        {
+          "title": "I can participate and invest my time in QA",
+          "name": "I can participate and invest my time in QA",
+          "value": "11_4",
+          "icon": "hourglass.svg",
+          "description" : "Welcome to the team"
+        }
+      ]
+    },
+    {
+      "title": "Would you like to choose some of our other offers?",
+      "short_title": "Other offers",
+      "type": "choose",
+      "name": "offer_type",
+      "value": null,
+      "allowMultiple": true,
+      "options": [
+        {
+          "title": "Publish in Apple App Store and Google Play",
+          "name": "Publish in Apple App Store and Google Play",
+          "value": "12_1",
+          "icon": "rocket.svg",
+          "description" : "Don't keep it to yourself"
+        },
+        {
+          "title": "Create promo materials for app stores",
+          "name": "Create promo materials for app stores",
+          "value": "12_2",
+          "icon": "for-app-store.svg",
+          "description" : "Design ninjas at your service"
+        },
+        {
+          "title": "Create accounts for several platforms",
+          "name": "Create accounts for several platforms",
+          "value": "12_3",
+          "icon": "accounts.svg",
+          "description" : "That's what the PM is for"
+        },
+        {
+          "title": "4 Minor updates after initial release",
+          "name": "4 Minor updates after initial release",
+          "value": "12_4",
+          "icon": "updates.svg",
+          "description" : "Chase those bugs out!"
+        }
+      ]
+    }
+  ]
+}

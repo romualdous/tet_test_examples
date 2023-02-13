@@ -1,0 +1,88 @@
+<?php
+
+namespace Tests\Unit;
+
+use App\Builders\Transaction\Builder;
+use App\Exceptions\TransactionException;
+use App\Models\Wallet;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class TransactionBuilderTest extends TestCase
+{
+    use RefreshDatabase;
+
+    /** @test */
+    public function built_transaction_will_have_wallet()
+    {
+        $wallet = Wallet::factory()->create();
+
+        $transaction = Builder::make()
+            ->wallet($wallet)
+            ->amount(200)
+            ->type('deposit')
+            ->create();
+
+        $this->assertDatabaseHas(
+            'transactions',
+            $transaction->only('wallet_id', 'amount', 'type')
+        );
+    }
+
+    /** @test
+     * @throws TransactionException
+     */
+    public function necessary_options_must_be_provided()
+    {
+        $wallet = Wallet::factory()->create();
+
+        $this->expectExceptionMessage("No amount has been provided for the transaction");
+        Builder::make()
+            ->wallet($wallet)
+            ->type('deposit')
+            ->create();
+
+        $this->expectExceptionMessage("No transaction type has been provided for the transaction");
+        Builder::make()
+            ->wallet($wallet)
+            ->amount(200)
+            ->create();
+
+        $this->expectExceptionMessage("No wallet has been provided for the transaction");
+        Builder::make()
+            ->type('deposit')
+            ->amount(200)
+            ->create();
+    }
+
+    /**
+     * @test
+     * @dataProvider amountProvider
+     * @param int $amount
+     * @throws TransactionException
+     */
+    public function valid_amount_must_be_provided(int $amount)
+    {
+        $wallet = Wallet::factory()->create();
+
+        $this->expectExceptionMessage("Given amount must be a valid positive integer");
+        Builder::make()
+            ->wallet($wallet)
+            ->amount($amount)
+            ->type('deposit')
+            ->create();
+    }
+
+    /**
+     * @return int[][]
+     */
+    public function amountProvider(): array
+    {
+        return [
+            [-1],
+            [0],
+            [-34543],
+            [-0]
+        ];
+    }
+}

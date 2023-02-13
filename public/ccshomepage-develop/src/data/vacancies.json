@@ -1,0 +1,87 @@
+[
+  {
+    "name": "React Native developer",
+    "level": "Middle level",
+    "requirements": [
+      "Good English skills",
+      "Ability to act proactively",
+      "Work discipline",
+      "Strong problem-solving skills",
+      "Experience using versioning control",
+      "Experience working with React Native"
+    ],
+    "offers": [
+      "Great team",
+      "Attractive salary",
+      "Flexible working hours",
+      "Work remotely",
+      "Different types of projects",
+      "Work independently and as a part of a team",
+      "Close collaboration with Project managers and CTO"
+    ]
+  },
+  {
+    "name": "Full stack developer",
+    "level": "Middle level",
+    "requirements": [
+      "Good English skills",
+      "Ability to act proactively",
+      "Work discipline",
+      "Strong problem-solving skills",
+      "Experience using versioning control",
+      "Experience working with FrontEnd (JS, Angular, React, Vue)",
+      "Experience working with BackEnd (Java, .NET, PHP, .Scala, etc..)"
+    ],
+    "offers": [
+      "Great team",
+      "Attractive salary",
+      "Flexible working hours",
+      "Work remotely",
+      "Different types of projects",
+      "Work independently and as a part of a team",
+      "Close collaboration with Project managers and CTO"
+    ]
+  },
+  {
+    "name": "Sales manager",
+    "level": "Middle level",
+    "requirements": [
+      "Good written and spoken English skills",
+      "Ability to prioritize and handle multiple projects simultaneously in a fast-paced environment with a high level of detail and accuracy",
+      "Work discipline",
+      "Excellent sales skills and goal-oriented personality",
+      "Ability to act proactively",
+      "Excellent communication skills and ability to manage sales processes",
+      "Good MS Office skills"
+    ],
+    "offers": [
+      "Great team",
+      "Attractive salary",
+      "Flexible working hours",
+      "Work remotely",
+      "Different types of projects",
+      "Work independently and as a part of a team",
+      "Possible business trips"
+    ]
+  },
+  {
+    "name": "Designer",
+    "level": "Middle level",
+    "requirements": [
+      "Good English skills",
+      "Ability to prioritize and handle multiple projects simultaneously in a fast-paced environment with a high level of detail and accuracy",
+      "Work discipline",
+      "Ability to act proactively",
+      "Experience in web and app interface development",
+      "Understanding of user-centered design and web standards",
+      "Knowledge of HTML/CSS is an advantage"
+    ],
+    "offers": [
+      "Great team",
+      "Attractive salary",
+      "Flexible working hours",
+      "Work remotely",
+      "Different types of projects"
+    ]
+  }
+]
